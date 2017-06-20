@@ -13,7 +13,7 @@
 ### 学校信息表university设计
 |中文名称 |列名 |字段属性 |默认值 | 备注 |
 |-----|-----|------|-----|------|
-|编号    |uid  |varchar(12) |not null|信息表主键|
+|编号    |id  |varchar(12) |not null|信息表主键|
 |学校名称|sname |varchar(11)|not null|        |
 |系别 |dept|varchar(11) |null |          |
 |教师|teacher|varchar(12) |null |          |
