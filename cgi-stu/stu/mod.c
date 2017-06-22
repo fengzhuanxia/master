@@ -4,22 +4,40 @@
 #include <mysql/mysql.h>
 #include "cgic.h"
 
+char * headname = "head.html";
+char * footname = "footer.html";
+
 int cgiMain()
 {
 
+	FILE * fd;
+
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 
-	char id[32] = "\0";
+	char stuId[32] = "\0";
 	char sname [16] = "\0";
 	char age[32] = "\0";
 	char sex[32]="\0";
 	char dept[32]="\0";
 	int status = 0;
 
-	status = cgiFormString("id",  id, 32);
+	char ch;
+	if(!(fd = fopen(headname, "r"))){
+		fprintf(cgiOut, "Cannot open file, %s\n", headname);
+		return -1;
+	}
+	ch = fgetc(fd);
+
+	while(ch != EOF){
+		fprintf(cgiOut, "%c", ch);
+		ch = fgetc(fd);
+	}
+fclose(fd);
+
+	status = cgiFormString("stuId",  stuId, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get id error!\n");
+		fprintf(cgiOut, "get stuId error!\n");
 		return 1;
 	}
 
@@ -74,8 +92,8 @@ int cgiMain()
 	}
 
 
-	sprintf(sql, "update student set id= %d, sname='%s', age= %d, sex='%s', dept='%s' where id = %d ",
-																					atoi(id),sname,atoi(age),sex,dept );
+	sprintf(sql, "update student set sname='%s',age= %d,sex='%s',dept='%s' where id='%s' ",
+	sname,atoi(age),sex,dept,stuId);
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));

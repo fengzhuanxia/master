@@ -106,7 +106,7 @@ fclose(fd);
 
 
 
-	sprintf(sql, "insert into student values(%d, '%s', %d,'%s','%s')", atoi(stuId), name, atoi(age),sex,dept);
+	sprintf(sql, "insert into student values(%d, '%s', %d,'%s','%s',1)", atoi(stuId), name, atoi(age),sex,dept);
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));

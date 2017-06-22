@@ -54,11 +54,11 @@ fclose(fd);
 
 	if (name[0] == '*')
 	{
-		sprintf(sql, "select * from student");
+		sprintf(sql, "select id as '学号',sname as '学生姓名',age as '年龄',sex as '性别',dept as '系别' from student where status=1");
 	}
 	else
 	{
-		sprintf(sql, "select * from student where sname = '%s'", name);
+		sprintf(sql, "select id as '学号',sname as '学生姓名',age as '年龄',sex as '性别',dept as '系别' from student where status=1 and sname='%s'", name);
 	}
 
 
